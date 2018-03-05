@@ -84,6 +84,23 @@ tape('should get stream', function (t) {
     })
 })
 
+tape('should get reverse', function (t) {
+  var expected = {
+    input: 'stringtoreverse',
+    output: 'esreverotgnirts'
+  }
+
+  var url = '/reverse/' + expected.input
+  servertest(server(), url, {encoding: 'json'}, function (err, res) {
+    t.ifError(err, 'no error')
+
+    t.equal(res.statusCode, 200, 'correct statusCode')
+    t.deepEqual(res.body, expected, 'values should match')
+    t.end()
+  })
+})
+
+
 tape('should get echo', function (t) {
   var url = '/echo?one=1&two=2'
   servertest(server(), url, {encoding: 'json'}, function (err, res) {
